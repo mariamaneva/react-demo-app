@@ -1,34 +1,30 @@
 pipeline {
-    agent { 
-        node {
-            label 'docker-agent-python'
-            }
-      }
-      triggers {
-        pollSCM('H/5 * * * *')
-      }
+    agent any
+
     stages {
-        stage('Build') {
+        stage('without docker') {
             steps {
-                echo "Building.."
                 sh '''
-                echo "doing build stuff.."
+                    echo "without docker"
+                    ls -la
+                    touch container-no.txt
                 '''
             }
         }
-        stage('Test') {
-            steps {
-                echo "Testing.."
-                sh '''
-                echo "doing test stuff.."
-                '''
+
+        stage('with docker') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true // use the same workspace
+                }
+              
             }
-        }
-        stage('Deliver') {
             steps {
-                echo 'Deliver....'
                 sh '''
-                echo "doing delivery stuff.."
+                    echo "with docker"
+                    npm --version
+                    touch container-yes.txt
                 '''
             }
         }
