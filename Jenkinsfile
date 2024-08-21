@@ -36,10 +36,11 @@ pipeline {
     }
     post {
         always {
+            // different from the original example
             publishHTML(target: [
                 reportName: 'Clover Coverage Report',
                 reportDir: 'coverage',
-                reportFiles: 'clover.xml',
+                reportFiles: 'coverage/clover.xml',
                 keepAll: true,
                 alwaysLinkToLastBuild: true,
                 allowMissing: false
