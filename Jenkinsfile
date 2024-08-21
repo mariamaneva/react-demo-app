@@ -29,9 +29,21 @@ pipeline {
             steps {
                 sh '''
                     test -f dist/index.html
-                    npm test
+                    npm run coverage
                 '''
             }
+        }
+    }
+    post {
+        always {
+            publishHTML(target: [
+                reportName: 'Clover Coverage Report',
+                reportDir: 'coverage',
+                reportFiles: 'clover.xml',
+                keepAll: true,
+                alwaysLinkToLastBuild: true,
+                allowMissing: false
+            ])
         }
     }
 }
