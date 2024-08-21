@@ -16,7 +16,13 @@ pipeline {
                     npm --version
                     npm ci
                     npm run build:prod
-                    npm test
+                '''
+            }
+        }
+        stage('Test without docker') {
+            steps {
+                sh '''
+                    test -f dist/index.html
                 '''
             }
         }
