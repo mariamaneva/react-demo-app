@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Build without docker') {
-            agent {
-                docker {
-                    image 'node:10.16.3-alpine'
-                    reuseNode true
-                }
+        agent {
+            docker {
+                image 'node:10.16.3-alpine'
+                reuseNode true
             }
+        }
+        stage('Build without docker') {
             steps {
                 sh '''
                     ls -la
@@ -23,6 +23,7 @@ pipeline {
             steps {
                 sh '''
                     test -f dist/index.html
+                    npm test
                 '''
             }
         }
