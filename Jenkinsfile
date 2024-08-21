@@ -39,8 +39,8 @@ pipeline {
             // different from the original example
             publishHTML(target: [
                 reportName: 'Clover Coverage Report',
-                reportDir: 'coverage',
-                reportFiles: 'coverage/clover.xml',
+                reportDir: 'coverage/lcov-report',
+                reportFiles: 'clover.xml',
                 keepAll: true,
                 alwaysLinkToLastBuild: true,
                 allowMissing: false
