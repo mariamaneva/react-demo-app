@@ -1,3 +1,9 @@
+### Run as container 
+`docker run -p 3001:3000  --rm --name=react-demo-app-container react-demo-app`
+
+#### Access locally at
+access it at `localhost:3001`
+
 <h1 align="center">React Demo App</h1>
 <p>
   <img src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
