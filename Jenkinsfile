@@ -5,7 +5,7 @@ pipeline {
         stage('Build without docker') {
             agent {
                 docker {
-                    image 'node:20-alpine'
+                    image 'node:10.16.3-alpine'
                     reuseNode true
                 }
             }
