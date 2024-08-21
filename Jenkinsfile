@@ -37,14 +37,17 @@ pipeline {
     post {
         always {
             // different from the original example
-            publishHTML(target: [
-                reportName: 'Clover Coverage Report',
-                reportDir: 'coverage',
-                reportFiles: 'clover.xml',
-                keepAll: true,
-                alwaysLinkToLastBuild: true,
-                allowMissing: false
-            ])
+            // publishHTML(target: [
+            //     reportName: 'Clover Coverage Report',
+            //     reportDir: 'coverage',
+            //     reportFiles: 'clover.xml',
+            //     keepAll: true,
+            //     alwaysLinkToLastBuild: true,
+            //     allowMissing: false
+            // ])
+
+            // test with cobertura (enable plugins: 'cobertura')
+            cobertura coberturaReportFile: 'coverage/clover.xml'
         }
     }
 }
