@@ -25,7 +25,7 @@ pipeline {
    
 
         stage('Run tests without docker') {
-            parralel {
+            parallel {
                 stage('Unit tests') {
                     agent {
                         docker {
