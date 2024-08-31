@@ -19,6 +19,7 @@
       "\\.(css|scss)$": "<rootDir>/__mocks__/style-mock.js",
       "\\.(gif|tff|eot|svg)": "<rootDir>/__mocks__/file-mock.js"
     },
+    "coverageReporters": ["cobertura", "text"],
     "coverageDirectory": "./coverage/",
     "collectCoverage": true
   },

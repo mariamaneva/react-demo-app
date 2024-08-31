@@ -65,10 +65,17 @@ pipeline {
             //     allowMissing: false
             // ])
 
-            // test with cobertura (enable plugins: 'cobertura')
-            // cobertura coberturaReportFile: 'coverage/clover.xml'
-            junit 'coverage/clover.xml'
-            junit 'playwright-report/index.html'
+            // publish unit test report with cobertura (enable plugins: 'cobertura')
+            cobertura coberturaReportFile: 'coverage/cobertura-coverage.xml'
+            // publish e2e test results
+            publishHTML(target: [
+                reportName: 'Playwright E2E Report',
+                reportDir: 'playwright-report',
+                reportFiles: 'index.html',
+                keepAll: true,
+                alwaysLinkToLastBuild: true,
+                allowMissing: false
+            ])
         }
     }
 }
