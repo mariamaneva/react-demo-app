@@ -66,7 +66,9 @@ pipeline {
             // ])
 
             // test with cobertura (enable plugins: 'cobertura')
-            cobertura coberturaReportFile: 'coverage/clover.xml'
+            // cobertura coberturaReportFile: 'coverage/clover.xml'
+            junit 'coverage/clover.xml'
+            junit 'playwright-report/index.html'
         }
     }
 }
