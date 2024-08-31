@@ -69,17 +69,19 @@ pipeline {
 
             // publish unit test report with cobertura (enable plugins: 'cobertura')
             cobertura coberturaReportFile: 'coverage/cobertura-coverage.xml'
-            // publish e2e test results
-            junit 'playwright-report/results.xml'
-            // publishHTML(target: [
-            //     reportName: 'Playwright E2E Report',
-            //     reportDir: 'playwright-report',
-            //     reportFiles: 'index.html',
-            //     sandbox: false,
-            //     keepAll: true,
-            //     alwaysLinkToLastBuild: true,
-            //     allowMissing: false
-            // ])
+            
+            // publish e2e test results with junit
+            // junit 'playwright-report/results.xml'
+
+            // publish e2e test results with publishHTML
+            publishHTML(target: [
+                reportName: 'Playwright E2E Report',
+                reportDir: 'playwright-report',
+                reportFiles: 'index.html',
+                keepAll: true,
+                alwaysLinkToLastBuild: true,
+                allowMissing: false
+            ])
         }
     }
 }
