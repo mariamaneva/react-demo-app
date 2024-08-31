@@ -18,7 +18,7 @@ pipeline {
                     node --version
                     npm --version
                     npm ci
-                    npm run build:prod
+                    npm run build:prod:ci
                 '''
             }
         }
@@ -45,7 +45,7 @@ pipeline {
             }
             steps {
                 sh '''
-                  npm start
+                  npm run start:ci
                   npx playwright test
                 '''
             }
