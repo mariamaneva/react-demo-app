@@ -56,6 +56,8 @@ pipeline {
     post {
         always {
             // different from the original example
+            // note: doesnt render due to sandboxing limitations
+            // can be disabled in the Jenkins console
             // publishHTML(target: [
             //     reportName: 'Clover Coverage Report',
             //     reportDir: 'coverage',
@@ -68,15 +70,16 @@ pipeline {
             // publish unit test report with cobertura (enable plugins: 'cobertura')
             cobertura coberturaReportFile: 'coverage/cobertura-coverage.xml'
             // publish e2e test results
-            publishHTML(target: [
-                reportName: 'Playwright E2E Report',
-                reportDir: 'playwright-report',
-                reportFiles: 'index.html',
-                sandbox: false,
-                keepAll: true,
-                alwaysLinkToLastBuild: true,
-                allowMissing: false
-            ])
+            junit 'playwright-report/results.xml'
+            // publishHTML(target: [
+            //     reportName: 'Playwright E2E Report',
+            //     reportDir: 'playwright-report',
+            //     reportFiles: 'index.html',
+            //     sandbox: false,
+            //     keepAll: true,
+            //     alwaysLinkToLastBuild: true,
+            //     allowMissing: false
+            // ])
         }
     }
 }
