@@ -72,6 +72,7 @@ pipeline {
                 reportName: 'Playwright E2E Report',
                 reportDir: 'playwright-report',
                 reportFiles: 'index.html',
+                sandbox: false,
                 keepAll: true,
                 alwaysLinkToLastBuild: true,
                 allowMissing: false
