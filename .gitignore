@@ -94,3 +94,8 @@ jenkins_home/
 sonarqube_conf/
 sonarqube_data/
 sonarqube_extensions/
+
+# e2e
+
+playwright-report/
+test-results/
