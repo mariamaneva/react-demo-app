@@ -45,7 +45,9 @@ pipeline {
             }
             steps {
                 sh '''
-                  npm run start:ci
+                  npm run start:ci & 
+                  # wait for the server to start
+                  sleep 10
                   npx playwright test
                 '''
             }
