@@ -2,6 +2,8 @@ pipeline {
     agent any
 
     stages {
+        // This is a simple comment
+        /* this is a block comment */
         stage('Build without docker') {
             agent {
                 docker {
@@ -11,6 +13,7 @@ pipeline {
             }
             steps {
                 sh '''
+                    # this is a shell script comment
                     ls -la
                     node --version
                     npm --version
