@@ -22,34 +22,40 @@ pipeline {
                 '''
             }
         }
-        stage('Test without docker') {
-            agent {
-                docker {
-                    image 'node:10.16.3-alpine'
-                    reuseNode true
+   
+
+        stage('Run tests without docker') {
+            parralel {
+                stage('Unit tests') {
+                    agent {
+                        docker {
+                            image 'node:10.16.3-alpine'
+                            reuseNode true
+                        }
+                    }
+                    steps {
+                        sh '''
+                            test -f dist/index.html
+                            npm run coverage
+                        '''
+                    }
                 }
-            }
-            steps {
-                sh '''
-                    test -f dist/index.html
-                    npm run coverage
-                '''
-            }
-        }
-        stage('E2E2 without docker') {
-            agent {
-                docker {
-                    image 'mcr.microsoft.com/playwright:v1.46.1-jammy'
-                    reuseNode true
+                stage('E2E2 tests') {
+                    agent {
+                        docker {
+                            image 'mcr.microsoft.com/playwright:v1.46.1-jammy'
+                            reuseNode true
+                        }
+                    }
+                    steps {
+                        sh '''
+                        npm run start:ci & 
+                        # wait for the server to start
+                        sleep 10
+                        npx playwright test
+                        '''
+                    }
                 }
-            }
-            steps {
-                sh '''
-                  npm run start:ci & 
-                  # wait for the server to start
-                  sleep 10
-                  npx playwright test
-                '''
             }
         }
     }
