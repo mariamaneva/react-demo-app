@@ -39,7 +39,7 @@ pipeline {
                             npm run coverage
                         '''
                     }
-                     post {
+                    post {
                         always {
                             // different from the original example
                             // note: doesnt render due to sandboxing limitations
@@ -73,19 +73,21 @@ pipeline {
                         npx playwright test
                         '''
                     }
-                    always {                            
-                        // publish e2e test results with junit
-                        // junit 'playwright-report/results.xml'
+                    post {
+                        always {                            
+                            // publish e2e test results with junit
+                            // junit 'playwright-report/results.xml'
 
-                        // publish e2e test results with publishHTML
-                        publishHTML(target: [
-                            reportName: 'Playwright E2E Report',
-                            reportDir: 'playwright-report',
-                            reportFiles: 'index.html',
-                            keepAll: true,
-                            alwaysLinkToLastBuild: true,
-                            allowMissing: false
-                        ])
+                            // publish e2e test results with publishHTML
+                            publishHTML(target: [
+                                reportName: 'Playwright E2E Report',
+                                reportDir: 'playwright-report',
+                                reportFiles: 'index.html',
+                                keepAll: true,
+                                alwaysLinkToLastBuild: true,
+                                allowMissing: false
+                            ])
+                        }
                     }
                 }
             }
