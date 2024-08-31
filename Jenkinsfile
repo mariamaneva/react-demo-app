@@ -45,7 +45,7 @@ pipeline {
             }
             steps {
                 sh '''
-                  npm buildAndStart
+                  npm start
                   npx playwright test
                 '''
             }
