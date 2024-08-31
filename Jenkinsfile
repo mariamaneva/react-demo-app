@@ -36,6 +36,20 @@ pipeline {
                 '''
             }
         }
+        stage('E2E2 without docker') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/playwright:v1.46.1-jammy'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                  npm buildAndStart
+                  npx playwright test
+                '''
+            }
+        }
     }
     post {
         always {
