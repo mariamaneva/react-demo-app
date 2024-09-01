@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+    environment {
+        CI = 1
+    }
 
     stages {
         // This is a simple comment
