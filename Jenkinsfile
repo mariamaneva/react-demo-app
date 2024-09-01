@@ -22,7 +22,6 @@ pipeline {
                 '''
             }
         }
-   
 
         stage('Run tests without docker') {
             parallel {
@@ -90,6 +89,21 @@ pipeline {
                         }
                     }
                 }
+            }
+        }
+
+        stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:10.16.3-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm install netlify-cli -g
+                    nerlify --version
+                '''
             }
         }
     }
