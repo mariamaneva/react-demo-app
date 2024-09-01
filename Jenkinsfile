@@ -11,7 +11,7 @@ pipeline {
         stage('Build without docker') {
             agent {
                 docker {
-                    image 'node:14.21.3-alpine'
+                    image 'node:22.7.0-alpine'
                     args '-u root:root'
                     reuseNode true
                 }
@@ -33,7 +33,7 @@ pipeline {
                 stage('Unit tests') {
                     agent {
                         docker {
-                            image 'node:14.21.3-alpine'
+                            image 'node:22.7.0-alpine'
                             reuseNode true
                         }
                     }
@@ -100,7 +100,7 @@ pipeline {
         stage('Deploy') {
             agent {
                 docker {
-                    image 'node:14.21.3-alpine'
+                    image 'node:22.7.0-alpine'
                     args '-u root:root'
                     reuseNode true
                 }
