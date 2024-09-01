@@ -7,7 +7,7 @@
     "test": "jest",
     "coverage": "jest --coverage --logHeapUsage --maxWorkers=2",
     "build:dev": "rm -rf dist &&  NODE_OPTIONS=--openssl-legacy-provider webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
-    "build:prod": "rm -rf dist && webpack --mode production --config webpack.server.config.js && NODE_OPTIONS=--openssl-legacy-provider webpack --mode production --config webpack.prod.config.js",
+    "build:prod": "rm -rf dist && NODE_OPTIONS=--openssl-legacy-provider webpack --mode production --config webpack.server.config.js && NODE_OPTIONS=--openssl-legacy-provider webpack --mode production --config webpack.prod.config.js",
     "build:prod:ci": "rm -rf dist && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
     "start": "NODE_OPTIONS=--openssl-legacy-provider node ./dist/server.js",
     "start:ci": " node ./dist/server.js",
