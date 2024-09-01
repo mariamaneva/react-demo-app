@@ -109,7 +109,7 @@ pipeline {
                 sh '''
                     # apk add g++ make py3-pip
                     # apk add --update python make g++ && rm -rf /var/cache/apk/*
-                    apt-get update || : && apt-get install python -y
+                    apk add --update python
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                 '''
