@@ -96,12 +96,13 @@ pipeline {
             agent {
                 docker {
                     image 'node:10.16.3-alpine'
+                    args '-u root:root'
                     reuseNode true
                 }
             }
             steps {
                 sh '''
-                    apk add g++ make --no-cache py3-pip
+                    apk add g++ make py3-pip
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                 '''
