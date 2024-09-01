@@ -101,6 +101,7 @@ pipeline {
             }
             steps {
                 sh '''
+                    apk add g++ make py3-pip
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                 '''
