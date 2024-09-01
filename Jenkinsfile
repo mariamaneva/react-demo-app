@@ -8,7 +8,6 @@ pipeline {
             agent {
                 docker {
                     image 'node:22.7.0-alpine'
-                    // args '-u root:root'
                     reuseNode true
                 }
             }
@@ -97,15 +96,11 @@ pipeline {
             agent {
                 docker {
                     image 'node:22.7.0-alpine'
-                    // args '-u root:root'
                     reuseNode true
                 }
             }
             steps {
                 sh '''
-                    # apk add g++ make py3-pip
-                    # apk add --update python make g++ && rm -rf /var/cache/apk/*
-                    # apk add --no-cache python3 py3-pip
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                 '''
