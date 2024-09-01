@@ -23,7 +23,7 @@ pipeline {
                     node --version
                     npm --version
                     npm ci
-                    npm run build:prod:ci
+                    npm run build:prod
                 '''
             }
         }
@@ -71,7 +71,7 @@ pipeline {
                     }
                     steps {
                         sh '''
-                        npm run start:ci & 
+                        npm run start & 
                         # wait for the server to start
                         sleep 10
                         npx playwright test
