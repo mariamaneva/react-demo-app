@@ -116,6 +116,14 @@ pipeline {
             }
         }
 
+         stage('Approval') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    input message: 'Ready to deploy?', ok: 'Yes, I want to deploy'
+                }
+            }
+        }
+
         stage('Deploy Porduction') {
             agent {
                 docker {
