@@ -84,7 +84,7 @@ pipeline {
 
                             // publish e2e test results with publishHTML
                             publishHTML(target: [
-                                reportName: 'Playwright E2E Report',
+                                reportName: 'Playwright Local E2E',
                                 reportDir: 'playwright-report',
                                 reportFiles: 'index.html',
                                 keepAll: true,
@@ -113,6 +113,41 @@ pipeline {
                     node_modules/.bin/netlify status
                     node_modules/.bin/netlify deploy --dir=dist --prod
                 '''
+            }
+        }
+
+        stage('Prod E2E2') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/playwright:v1.46.1-jammy'
+                    reuseNode true
+                }
+            }
+            
+            environment {
+                CI_ENVIRONMENT_URL = "https://my-demo-app-manual-deploy.netlify.app"
+            }
+
+            steps {
+                sh '''
+                    npx playwright test
+                '''
+            }
+            post {
+                always {                            
+                    // publish e2e test results with junit
+                    // junit 'playwright-report/results.xml'
+
+                    // publish e2e test results with publishHTML
+                    publishHTML(target: [
+                        reportName: 'Playwright Prod E2E',
+                        reportDir: 'playwright-report',
+                        reportFiles: 'index.html',
+                        keepAll: true,
+                        alwaysLinkToLastBuild: true,
+                        allowMissing: false
+                    ])
+                }
             }
         }
     }
