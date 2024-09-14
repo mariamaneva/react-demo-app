@@ -37,6 +37,7 @@ const App = () => {
                     </Col>
                 </Row>
             </Container>
+            <p>Application version: {process.env.REACT_APP_VERSION}</p>
         </div>
     )
 }

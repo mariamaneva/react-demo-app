@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
+        REACT_APP_VERSION = '1.0.0'
     }
 
     stages {
@@ -156,13 +157,13 @@ pipeline {
             }
         }
 
-         stage('Approval') {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    input message: 'Ready to deploy?', ok: 'Yes, I want to deploy'
-                }
-            }
-        }
+        //  stage('Approval') {
+        //     steps {
+        //         timeout(time: 5, unit: 'MINUTES') {
+        //             input message: 'Ready to deploy?', ok: 'Yes, I want to deploy'
+        //         }
+        //     }
+        // }
 
         stage('Deploy prod + E2E2') {
             agent {
