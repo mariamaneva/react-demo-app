@@ -178,8 +178,11 @@ pipeline {
                     node_modules/.bin/netlify --version
                     echo deploying to production. Site ID: $NETLIFY_SITE_ID
                     node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=dist --prod
+                    node_modules/.bin/netlify deploy --dir=dist --prod --json > deploy-output-prod.json
                 '''
+                script {
+                    env.PROD_URL = sh(script: "node_modules/.bin/node-jq -r  '.deploy_url' deploy-output-prod.json", returnStdout: true)
+                }
             }
         }
 
@@ -192,7 +195,7 @@ pipeline {
             }
             
             environment {
-                CI_ENVIRONMENT_URL = "https://my-demo-app-manual-deploy.netlify.app"
+                CI_ENVIRONMENT_URL = "${env.PROD_URL}"
             }
 
             steps {
