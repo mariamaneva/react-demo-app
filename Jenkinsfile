@@ -62,7 +62,7 @@ pipeline {
                         }
                     }
                 }
-                stage('E2E2 tests') {
+                stage('Local E2E2 tests') {
                     agent {
                         docker {
                             image 'mcr.microsoft.com/playwright:v1.46.1-jammy'
@@ -164,29 +164,7 @@ pipeline {
             }
         }
 
-        stage('Deploy Porduction') {
-            agent {
-                docker {
-                    image 'node:22.7.0-alpine'
-                    args '-u root:root'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    npm install netlify-cli
-                    node_modules/.bin/netlify --version
-                    echo deploying to production. Site ID: $NETLIFY_SITE_ID
-                    node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=dist --prod --json > deploy-output-prod.json
-                '''
-                script {
-                    env.PROD_URL = sh(script: "node_modules/.bin/node-jq -r  '.deploy_url' deploy-output-prod.json", returnStdout: true)
-                }
-            }
-        }
-
-        stage('Prod E2E2') {
+        stage('Deploy prod + E2E2') {
             agent {
                 docker {
                     image 'mcr.microsoft.com/playwright:v1.46.1-jammy'
@@ -195,11 +173,16 @@ pipeline {
             }
             
             environment {
-                CI_ENVIRONMENT_URL = "${env.PROD_URL}"
+                CI_ENVIRONMENT_URL = "https://my-demo-app-manual-deploy.netlify.app"
             }
 
             steps {
                 sh '''
+                    npm install netlify-cli
+                    node_modules/.bin/netlify --version
+                    echo deploying to production. Site ID: $NETLIFY_SITE_ID
+                    node_modules/.bin/netlify status
+                    node_modules/.bin/netlify deploy --dir=dist --prod
                     npx playwright test
                 '''
             }
