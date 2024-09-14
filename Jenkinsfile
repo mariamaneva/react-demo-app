@@ -185,7 +185,7 @@ pipeline {
                     echo deploying to production. Site ID: $NETLIFY_SITE_ID
                     node_modules/.bin/netlify status
                     node_modules/.bin/netlify deploy --dir=dist --prod
-                    sleep 100
+                    sleep 10
                     npx playwright test
                 '''
             }
