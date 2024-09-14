@@ -168,6 +168,7 @@ pipeline {
             agent {
                 docker {
                     image 'mcr.microsoft.com/playwright:v1.46.1-jammy'
+                    args '-u root:root'
                     reuseNode true
                 }
             }
@@ -183,6 +184,7 @@ pipeline {
                     echo deploying to production. Site ID: $NETLIFY_SITE_ID
                     node_modules/.bin/netlify status
                     node_modules/.bin/netlify deploy --dir=dist --prod
+                    // nice to have: add a sleep before e2e
                     npx playwright test
                 '''
             }
