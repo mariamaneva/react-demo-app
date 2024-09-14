@@ -21,7 +21,6 @@ const Router = () => {
                     <Route path="/contact" component={Contact} />
                     <Route component={NotFound} />
                 </Switch>
-                <p>Application version: {process.env.REACT_APP_VERSION}</p>
             </div>
         </BrowserRouter>
     )

@@ -56,9 +56,12 @@ module.exports = {
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: './src/html/index.html',
+            template: './src/html/index.html.ejs',
             filename: './index.html',
-            excludeChunks: [ 'server' ]
+            excludeChunks: [ 'server' ],
+            templateParameters: {
+                version: process.env.REACT_APP_VERSION || 1,
+            },
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
