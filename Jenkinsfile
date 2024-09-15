@@ -17,7 +17,7 @@ pipeline {
         stage('Build without docker') {
             agent {
                 docker {
-                    image 'node:22.7.0-alpine'
+                    image 'my-playwright'
                     args '-u root:root'
                     reuseNode true
                 }
@@ -39,7 +39,7 @@ pipeline {
                 stage('Unit tests') {
                     agent {
                         docker {
-                            image 'node:22.7.0-alpine'
+                            image 'my-playwright'
                             reuseNode true
                         }
                     }
@@ -71,7 +71,7 @@ pipeline {
                 stage('Local E2E2 tests') {
                     agent {
                         docker {
-                            image 'mcr.microsoft.com/playwright:v1.46.1-jammy'
+                            image 'my-playwright'
                             args '-u root:root'
                             reuseNode true
                         }
@@ -107,22 +107,19 @@ pipeline {
         stage('Deploy Staging') {
             agent {
                 docker {
-                    image 'node:22.7.0-alpine'
+                    image 'my-playwright'
                     args '-u root:root'
                     reuseNode true
                 }
             }
             steps {
                 sh '''
-                    npm install netlify-cli
-                    npm install node-jq
-                    node_modules/.bin/netlify --version
                     echo deploying to staging. Site ID: $NETLIFY_SITE_ID
-                    node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=dist --json > deploy-output.json
+                    netlify status
+                    netlify deploy --dir=dist --json > deploy-output.json
                 '''
                 script {
-                    env.STAGING_URL = sh(script: "node_modules/.bin/node-jq -r  '.deploy_url' deploy-output.json", returnStdout: true)
+                    env.STAGING_URL = sh(script: "node-jq -r  '.deploy_url' deploy-output.json", returnStdout: true)
                 }
             }
 
@@ -131,7 +128,7 @@ pipeline {
         stage('Staging E2E2') {
             agent {
                 docker {
-                    image 'mcr.microsoft.com/playwright:v1.46.1-jammy'
+                    image 'my-playwright'
                     args '-u root:root'
                     reuseNode true
                 }
@@ -175,7 +172,7 @@ pipeline {
         stage('Deploy prod + E2E2') {
             agent {
                 docker {
-                    image 'mcr.microsoft.com/playwright:v1.46.1-jammy'
+                    image 'my-playwright'
                     args '-u root:root'
                     reuseNode true
                 }
@@ -187,11 +184,10 @@ pipeline {
 
             steps {
                 sh '''
-                    npm install netlify-cli
-                    node_modules/.bin/netlify --version
+                    netlify --version
                     echo deploying to production. Site ID: $NETLIFY_SITE_ID
-                    node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=dist --prod
+                    netlify status
+                    netlify deploy --dir=dist --prod
                     sleep 10
                     npx playwright test
                 '''
