@@ -5,5 +5,5 @@ ADD . /app
 # RUN apk add g++ make py3-pip
 RUN npm install
 EXPOSE 3000
-CMD npm run buildAndStart
-
+# CMD npm run buildAndStart
+CMD npm run buildAndServe

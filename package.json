@@ -13,7 +13,7 @@
     "start:legacy": " node ./dist/server.js",
     "buildAndStart": "NODE_OPTIONS=--openssl-legacy-provider npm run build:dev &&  NODE_OPTIONS=--openssl-legacy-provider node ./dist/server.js ",
     "serve": "NODE_OPTIONS=--openssl-legacy-provider npx serve -s dist",
-    "buildAndServe": "npm run build:prod && npm run serve"
+    "buildAndServe": "npm run build:prod && npx run serve"
   },
   "jest": {
     "moduleNameMapper": {
