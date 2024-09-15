@@ -7,6 +7,11 @@ pipeline {
     }
 
     stages {
+        stage('Docker') {
+            steps {
+                sh 'docker build -t my-playwright .'
+            }
+        }
         // This is a simple comment
         /* this is a block comment */
         stage('Build without docker') {
