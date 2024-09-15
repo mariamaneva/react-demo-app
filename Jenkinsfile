@@ -18,6 +18,7 @@ pipeline {
             agent {
                 docker {
                     image 'my-playwright'
+                    args '-u root:root'
                     reuseNode true
                 }
             }
@@ -71,6 +72,7 @@ pipeline {
                     agent {
                         docker {
                             image 'my-playwright'
+                            args '-u root:root'
                             reuseNode true
                         }
                     }
@@ -106,6 +108,7 @@ pipeline {
             agent {
                 docker {
                     image 'my-playwright'
+                    args '-u root:root'
                     reuseNode true
                 }
             }
@@ -126,6 +129,7 @@ pipeline {
             agent {
                 docker {
                     image 'my-playwright'
+                    args '-u root:root'
                     reuseNode true
                 }
             }
@@ -169,6 +173,7 @@ pipeline {
             agent {
                 docker {
                     image 'my-playwright'
+                    args '-u root:root'
                     reuseNode true
                 }
             }
