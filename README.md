@@ -1,4 +1,6 @@
 ### Run as container 
+`docker build -f Dockerfile.standalone .`
+
 `docker run -p 3001:3000  --rm --name=react-demo-app-container react-demo-app`
 
 #### Access locally at
