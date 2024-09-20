@@ -29,27 +29,27 @@ pipeline {
             }
         }
 
-         stage("Deploy to AWS") {
-            agent {
-                docker {
-                    image 'amazon/aws-cli'
-                    args "--entrypoint=''"
-                    reuseNode true
-                }
-            }
+        //  stage("Deploy to AWS") {
+        //     agent {
+        //         docker {
+        //             image 'amazon/aws-cli'
+        //             args "--entrypoint=''"
+        //             reuseNode true
+        //         }
+        //     }
 
-            environment {
-                AWS_S3_BUCKET = "learn-jenkins-202409170054"
-            }
+        //     environment {
+        //         AWS_S3_BUCKET = "learn-jenkins-202409170054"
+        //     }
 
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'my-aws', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
-                    sh '''
-                        aws s3 sync dist s3://$AWS_S3_BUCKET
-                    '''
-                }
-            }
-        }
+        //     steps {
+        //         withCredentials([usernamePassword(credentialsId: 'my-aws', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+        //             sh '''
+        //                 aws s3 sync dist s3://$AWS_S3_BUCKET
+        //             '''
+        //         }
+        //     }
+        // }
 
 
         stage('Run tests without docker') {
